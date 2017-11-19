@@ -22,6 +22,6 @@ Once the application is working you'll want to run `manage.py updateadvisories` 
 
 ## What is this for?
 
-If you need to develop automated reporting on the "patch state" of large numbers of hosts, or if you want to make the process of patching them simpler then it's useful to have vulnerability information in a machine readable state.
+If you need to develop automated reporting on the "patch state" of large numbers of hosts, or if you want to make the process of patching them simpler then it's useful to have vulnerability information in a machine readable state. See also [osquery-controller](https://github.com/fincham/osquery-controller) for a way to get information about what packages you actually have installed.
 
 We would be interested to see what you can do with this data!
