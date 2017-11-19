@@ -1,0 +1,49 @@
+{% extends 'browser/base.html' %}
+
+{% block title %}CVE browser{% endblock %}
+
+{% block content %}
+<h1>CVE browser</h1>
+<div class="row">
+    <div class="col">
+        <p>There are currently {{ vulnerability_count }} CVEs known to this system. Information last updated {{ updated }}.</p>
+        <p>Because Ubuntu do not issue advisories for packages in the "universe" component, there tend to be more CVEs associated with Debian advisories.</p>
+    </div>
+</div>
+<div class="row">
+    <div class="col">
+        <h2>All CVEs</h2>
+    </div>
+    <table id="maintable" class="table" width="100%">
+        <thead>
+            <tr>
+                <th style="max-width: 100px;">Upstream ID</th><th>Advisories</th><th>Fixed in</th><th style="max-width: 100px">First seen</th>
+            </tr>
+        </thead>
+    </table>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.2.1.min.js" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
+<script type="text/javascript" language="javascript" src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+<script type="text/javascript" language="javascript" src="https://cdn.datatables.net/1.10.16/js/dataTables.bootstrap4.min.js"></script>
+<script type="text/javascript" class="init">
+    $(document).ready(function() {
+        $('#maintable').DataTable( {
+            "processing": true,
+            "serverSide": true,
+            "order": [[ 3, "desc" ]],
+            "ajax": "{% url 'cve_table' %}",
+            "columns": [
+                null,
+                { "orderable": false },
+                { "orderable": false },
+                null
+            ]
+        });
+    });
+</script>
+<br>
+<p>More information will be added to this application soon! For enquiries contact <a href="mailto:michael@hotplate.co.nz">michael@hotplate.co.nz</a></p>
+{% endblock %}

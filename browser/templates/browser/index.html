@@ -1,0 +1,82 @@
+{% extends 'browser/base.html' %}
+
+{% block content %}
+<h1>Advisory browser</h1>
+<div class="row">
+    <div class="col">
+        <p>There are currently {{ advisory_count }} advisories known to this system. Information last updated {{ updated }}.</p>
+    </div>
+</div>
+<div class="row">
+    <div class="col-sm">
+        <table class="table table-sm"><thead><tr><th colspan="2">Recent advisories</th></tr>
+        </thead><tbody>
+            {% for advisory in recent_advisories %}
+                <tr><td class="date">{{ advisory.issued|date:"Y-m-d" }}</td><td class="ellipsis"><span><a href="{% url 'advisory_detail' advisory.upstream_id %}">{{ advisory.upstream_id }}</a> {{ advisory.short_description }}</span></td></tr>
+            {% endfor %}
+        </table>
+    </div>
+    <div class="col-sm">
+        <table class="table table-sm"><thead><tr><th colspan="2">Recent packages</th></tr></thead><tbody>
+            {% for package in recent_packages %}
+                <tr><td class="date">{{ package.advisory.issued|date:"Y-m-d" }}</td><td class="ellipsis"><span><a href="{% url 'advisory_detail' package.advisory.upstream_id %}">{{ package.package }} {{ package.safe_version }}</a></span></td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+<div class="col-sm">
+    <table class="table table-sm">
+        <thead>
+            <tr>
+                <th colspan="2"><a href="{% url 'cves' %}">Recent CVEs</a></th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for vulnerability in recent_vulnerabilities %}
+                <tr>
+                    <td class="date">{{ vulnerability.first_seen|date:"Y-m-d" }}</td><td class="ellipsis"><span><a href="{% url 'vulnerability_detail' vulnerability.upstream_id %}">{{ vulnerability.upstream_id }}</a> from {{ vulnerability.source_list }}</span></td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+</div>
+<div class="row">
+    <div class="col">
+        <h2>All advisories</h2>
+    </div>
+    <table id="maintable" class="table" width="100%">
+        <thead>
+            <tr>
+                <th>Upstream ID</th><th>Short description</th><th>Source package names</th><th>CVEs</th><th>Source</th><th>Issued</th>
+            </tr>
+        </thead>
+    </table>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.2.1.min.js" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
+<script type="text/javascript" language="javascript" src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+<script type="text/javascript" language="javascript" src="https://cdn.datatables.net/1.10.16/js/dataTables.bootstrap4.min.js"></script>
+<script type="text/javascript" class="init">
+    $(document).ready(function() {
+        $('#maintable').DataTable( {
+            "processing": true,
+            "serverSide": true,
+            "order": [[ 5, "desc" ]],
+            "ajax": "{% url 'table' %}",
+            "columns": [
+                null,
+                { "orderable": false },
+                { "orderable": false },
+                { "orderable": false },
+                null,
+                null
+            ]
+        });
+    });
+</script>
+<br>
+<p>More information will be added to this application soon! For enquiries contact <a href="mailto:michael@hotplate.co.nz">michael@hotplate.co.nz</a></p>
+{% endblock %}

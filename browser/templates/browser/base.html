@@ -1,0 +1,76 @@
+<!doctype html>
+<html>
+<head>
+    <title>{% block title %}Advisory browser{% endblock %}</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.16/css/dataTables.bootstrap4.min.css">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <style>
+        a {
+            color: #135069 !important;
+        }
+
+        .date {
+            width: 100px;
+        }
+
+        .date, th {
+            white-space: nowrap;
+        }
+
+        th {
+            vertical-align: top;
+        }
+
+        table.horizontal-table th {
+            padding-right: 10px;
+            text-align: right;
+        }
+
+        table.horizontal-table table.table th {
+            text-align: left;
+        }
+
+        .separate-from-above th, .separate-from-above td {
+            padding-top: 15px;
+        }
+
+        th.table-label {
+            padding-top: 31px;
+        }
+
+        .page-item.active .page-link {
+            background-color: #d5d5d5 !important;
+            border-color: #135069 !important;
+        }
+
+        #maintable td:nth-child(6), #maintable td:nth-child(1) {
+            white-space: nowrap;
+        }
+
+        .ellipsis {
+            position: relative;
+        }
+
+        .ellipsis:before {
+            content: '&nbsp;';
+            visibility: hidden;
+        }
+
+        .ellipsis span {
+            position: absolute;
+            left: 0;
+            right: 0;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+    </style>
+</head>
+<body>
+    <div class="container-fluid">
+        {% block content %}{% endblock %}
+    </div>
+</body>
+</html>
