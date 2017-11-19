@@ -1,6 +1,6 @@
 # advisory-feeds
 
-**This is a bit of an ugly fork of some open source code we've been building as part of a larger project at work, forked for BSides Wellington 2017. Once we decide how to structure the project better this repo will be replaced by a link to the official one.**
+**This is a bit of an ugly fork of some open source code we've been building as part of a larger project at work, forked for BSides Wellington 2017. Once we decide how to structure the project better this repo will be replaced by a link to the official one over at [Catalyst](https://github.com/catalyst/).**
 
 ## What is this?
 
