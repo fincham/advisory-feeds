@@ -86,7 +86,8 @@ class DebianFeed(object):
             pass
 
         try:
-            advisory_list = self.client.cat(self.list_location).decode('utf-8')
+            r = requests.get('https://salsa.debian.org/security-tracker-team/security-tracker/raw/master/' + self.list_location, timeout=3.1)
+            advisory_list = r.text
             with open('%s/list' % self.cache_location, 'w') as advisory_list_file:
                 advisory_list_file.write(advisory_list)
         except ValueError:
@@ -441,5 +442,7 @@ class Command(BaseCommand):
         feed = UbuntuFeed()
         feed.update_local_database()
 
+
         with open("%s/advisory_cache/timestamp" % settings.BASE_DIR, 'w') as timestamp:
             timestamp.write(str(int(time.time())))
+            
