@@ -118,7 +118,7 @@ class DebianFeed(object):
                         }
                     issued = pytz.utc.localize(dateutil_parse(line.split('] ')[0].strip('[')))
                     advisory = line.split('] ')[-1].split()[0] # upstream ID of DSA/DLA
-                    cves = []                                
+                    cves = []
                     '''
                     there are at least two advisories, DLA-359-1 and DLA-73-1, which don't
                     follow the "[<date>] <DLA #> <source package> - <description>" format,
